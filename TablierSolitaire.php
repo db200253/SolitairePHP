@@ -321,7 +321,26 @@ class TablierSolitaire {
 	
 	public static function initTablierAnglais() : array {
 		
-		//TODO
+	    $tab = new TablierSolitaire(7, 7);
+	    
+	    for($i=0; $i < $tab->nbLignes; ++$i) {
+	        
+	        for($j = 0; $j < $tab->nbColonnes; ++$j) {
+	            
+	            if($i == 3 && $j == 3) {
+	                
+	                $tab->tablier[$i][$j]->setValeur(0);
+	            } else if($i < 2 || $i > 4 && $j < 2 || $j > 4) {
+	                
+	                $tab->tablier[$i][$j]->setValeur(-1);
+	            } else {
+	                
+	                $tab->tablier[$i][$j]->setValeur(1);
+	            }
+	        }
+	    }
+	    
+	    return $tab;
 	}
 }
 ?>
