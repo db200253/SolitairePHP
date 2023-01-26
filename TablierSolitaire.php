@@ -260,7 +260,7 @@ class TablierSolitaire {
 	    return false;
 	}
 	
-	public static function initTablierGagnant() : array {
+	public static function initTablierGagnant() : TablierSolitaire {
 		
 		$tabGagnant = new TablierSolitaire(5, 5);
 		
@@ -274,10 +274,10 @@ class TablierSolitaire {
 		
 		$tabGagnant->tablier[($tabGagnant->nbLignes)/2][($tabGagnant->nbColonnes)/2]->setValeur(1);
 		
-		return $tabGagnant->tablier;
+		return $tabGagnant;
 	}
 	
-	public static function initTablierPerdant() : array {
+	public static function initTablierPerdant() : TablierSolitaire {
 		
 	    $tabPerdant = new TablierSolitaire(5, 5);
 	    
@@ -292,12 +292,31 @@ class TablierSolitaire {
 	    $tabPerdant->tablier[($tabPerdantt->nbLignes)/2][($tabPerdant->nbColonnes)/2]->setValeur(1);
 	    $tabPerdant->tablier[($tabPerdantt->nbLignes)/2+2][($tabPerdant->nbColonnes)/2]->setValeur(1);
 	    
-	    return $tabPerdant->tablier;
+	    return $tabPerdant;
 	}
 	
-	public static function initTablierEuropeen() : array {
+	public static function initTablierEuropeen() : TablierSolitaire {
 		
-		//TODO
+		$tab = new TablierSolitaire(9, 9);
+		
+		for($i=0; $i < $tab->nbLignes; ++$i) {
+		    
+		    for($j = 0; $j < $tab->nbColonnes; ++$j) {
+		        
+		        if($i == ($tab->nbLignes)/2 && $j == ($tab->nbColonnes)/2) {
+		            
+		            $tab->tablier[$i][$j]->setValeur(0);
+		        } else if($i < sqrt($tab->nbLignes) || $i >= 2*sqrt($tab->nbLignes) && $j < sqrt($tab->nbColonnes) || $j >= 2*sqrt($tab->nbColonnes)) {
+		            
+		            $tab->tablier[$i][$j]->setValeur(-1);
+		        } else {
+		            
+		            $tab->tablier[$i][$j]->setValeur(1);
+		        }
+		    }
+		}
+		
+		return $tab;
 	}
 	
 	public static function initTablierAnglais() : array {
