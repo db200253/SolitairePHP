@@ -236,7 +236,28 @@ class TablierSolitaire {
 	
 	public function isVictoire() : bool {
 		
-		//TODO
+	    if($this -> isFinPartie() == true) {
+	        
+	        $compteur = 0;
+	        
+	        for($i=0; $i < $this->nbLignes; ++$i) {
+	            
+	            for($j = 0; $j < $this->nbColonnes; ++$j) {
+	                
+	                if($this->tablier[$i][$j]->getValeur() == CaseSolitaire::BILLE) {
+	                    
+	                    ++$compteur;
+	                }
+	            }
+	        }
+	        
+	        if($compteur == 1) {
+	            
+	            return true;
+	        }
+	    }
+	    
+	    return false;
 	}
 	
 	public static function initTablierGagnant() : array {
