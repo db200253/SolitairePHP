@@ -262,12 +262,37 @@ class TablierSolitaire {
 	
 	public static function initTablierGagnant() : array {
 		
-		//TODO
+		$tabGagnant = new TablierSolitaire(5, 5);
+		
+		for($i=0; $i < $tabGagnant->nbLignes; ++$i) {
+		    
+		    for($j = 0; $j < $tabGagnant->nbColonnes; ++$j) {
+		        
+		        $tabGagnant->tablier[$i][$j]->setValeur(0);
+		    }
+		}
+		
+		$tabGagnant->tablier[($tabGagnant->nbLignes)/2][($tabGagnant->nbColonnes)/2]->setValeur(1);
+		
+		return $tabGagnant->tablier;
 	}
 	
 	public static function initTablierPerdant() : array {
 		
-		//TODO
+	    $tabPerdant = new TablierSolitaire(5, 5);
+	    
+	    for($i=0; $i < $tabPerdant->nbLignes; ++$i) {
+	        
+	        for($j = 0; $j < $tabPerdant->nbColonnes; ++$j) {
+	            
+	            $tabPerdant->tablier[$i][$j]->setValeur(0);
+	        }
+	    }
+	    
+	    $tabPerdant->tablier[($tabPerdantt->nbLignes)/2][($tabPerdant->nbColonnes)/2]->setValeur(1);
+	    $tabPerdant->tablier[($tabPerdantt->nbLignes)/2+2][($tabPerdant->nbColonnes)/2]->setValeur(1);
+	    
+	    return $tabPerdant->tablier;
 	}
 	
 	public static function initTablierEuropeen() : array {
