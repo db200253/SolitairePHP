@@ -1,4 +1,7 @@
 <?php
+
+require("./CaseSolitaire.php");
+
 class TablierSolitaire {
 	
 	public const NORD = 0;

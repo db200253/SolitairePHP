@@ -13,7 +13,7 @@ class CaseSolitaire {
 
     public function __toString() : String {
 			
-	 	  return $this->getValeur();
+	 	  return "La valeur de la case est " . $this->valeur;
     }
 
     public function getValeur() : int {
@@ -43,36 +43,5 @@ class CaseSolitaire {
         if($this->valeur == self::NEUTRALISE) return true;
         return false;
     }
-}
-
-$instanceCS1 = new CaseSolitaire();
-$instanceCS1->getValeur();
-print_r($instanceCS1);
-if($instanceCS1->isCaseVide() == true) {
-	echo "La case est VIDE\n";
-} elseif($instanceCS1->isCaseBille() == true) {
-	echo "La case est BILLE\n";
-} elseif($instanceCS1->isCaseNeutralise() == true) {
-	echo "La case est NEUTRALISE\n";
-}
-$instanceCS1->setValeur(0);
-$instanceCS1->getValeur();
-print_r($instanceCS1);
-if($instanceCS1->isCaseVide() == true) {
-	echo "La case est VIDE\n";
-} elseif($instanceCS1->isCaseBille() == true) {
-	echo "La case est BILLE\n";
-} elseif($instanceCS1->isCaseNeutralise() == true) {
-	echo "La case est NEUTRALISE\n";
-}
-$instanceCS1->setValeur(-1);
-$instanceCS1->getValeur();
-print_r($instanceCS1);
-if($instanceCS1->isCaseVide() == true) {
-	echo "La case est VIDE\n";
-} elseif($instanceCS1->isCaseBille() == true) {
-	echo "La case est BILLE\n";
-} elseif($instanceCS1->isCaseNeutralise() == true) {
-	echo "La case est NEUTRALISE\n";
 }
 ?>
