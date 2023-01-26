@@ -1,6 +1,18 @@
 <?php
+
+/**
+ *
+ * @author Baptiste Duvieu
+ * @author Billal Zaidi
+ *
+ */
     
     require("./TablierSolitaire.php");
+    
+    /**
+     * 
+     * Tests CaseSolitaire : set, Vide, Bille, Neutralise, etc...
+     */
     
     $instanceCS1 = new CaseSolitaire();
     echo("\n".$instanceCS1."\n");
@@ -44,6 +56,10 @@
         echo "La case est NEUTRALISE\n";
     }
     
+    /**
+     * 
+     * tests TablierSolitaire : remplit, vide, neutralise, get
+     */
     $instTab = new TablierSolitaire();
     echo "\nIl y a ".$instTab->getNbLignes()." lignes dans ce tablier.\n";
     echo "\nIl y a ".$instTab->getNbColonnes()." colonnes dans ce tablier.\n";
@@ -75,10 +91,17 @@
     
     echo "Case [3, 4] : " . $instTab->getCase(3, 4) . "\n";
     
+    /**
+     * 
+     * tests Tablier europeen
+     */
     $tabEur = TablierSolitaire::initTablierEuropeen();
     echo "Exemple de tablier europeen : \n";
     echo($tabEur . "\n");
     
+    /**
+     * bille jouable, mouvement valide (dir) et deplace bille (dir)
+     */
     if($tabEur->isBilleJouable(2, 4) == true) {
         
         echo "La bille [2, 4] est jouable. \n";
@@ -98,13 +121,28 @@
         echo "La bille [2, 4] n'est pas jouable. \n";
     }
     
+    /**
+     * 
+     * tests tablier anglais
+     */
     $tabAngl = TablierSolitaire::initTablierAnglais();
     echo "Exemple de tablier anglais : \n";
     echo($tabAngl . "\n");
     
+    /**
+     * bille jouable, mouvement valide, deplace bille
+     */
     if($tabAngl->isBilleJouable(1, 3) == true) {
         
         echo "La bille [1, 3] est jouable.\n";
+        
+        if($tabAngl->estValideMvtDir(1, 3, 2) == true) {
+            
+            echo "Le mouvement de la bille [1, 3] vers le sud est valide.\n";
+        } else {
+            
+            echo "Le mouvement de la bille [1, 3] vers le sud n'est pas valide.\n";
+        }
         
         if($tabAngl->estValideMvt(1, 3, 3, 3) == true) {
             
@@ -123,14 +161,6 @@
         } else {
             
             echo "Le mouvement de la bille [1, 3] vers la case [4, 3] n'est pas valide.\n";
-        }
-        
-        if($tabAngl->estValideMvtDir(1, 3, 2) == true) {
-            
-            echo "Le mouvement de la bille [1, 3] vers le sud est valide.\n";
-        } else {
-            
-            echo "Le mouvement de la bille [1, 3] vers le sud n'est pas valide.\n";
         }
         
         if($tabAngl->estValideMvtDir(1, 3, 0) == true) {
@@ -153,10 +183,17 @@
         echo "La bille [3, 4] n'est pas jouable.\n";
     }
     
+    /**
+     * 
+     * tests tablier gagnant
+     */
     $tabGagn = TablierSolitaire::initTablierGagnant();
     echo "Exemple de tablier gagnant : \n";
     echo($tabGagn . "\n");
     
+    /**
+     * is fin partie (true) et isvictoire (true)
+     */
     if($tabGagn->isFinPartie() == true) {
         
         echo "La partie est finie pour le tablier ci-dessus. \n";
@@ -170,10 +207,17 @@
         }
     }
     
+    /**
+     * 
+     * tests tablier perdant
+     */
     $tabPerd = TablierSolitaire::initTablierPerdant();
     echo "Exemple de tablier perdant : \n";
     echo($tabPerd . "\n");
     
+    /**
+     * is fin partie (true) et isvictoire (false)
+     */
     if($tabPerd->isFinPartie() == true) {
         
         echo "La partie est finie pour le tablier ci-dessus. \n";
@@ -186,7 +230,10 @@
             echo "La partie est perdue. \n";
         }
     }
- 
+    
+    /**
+     * tests premier tableau : is fin partie (false)
+     */
     echo "On a le premier tableau : \n" . $instTab . "\n";
     
     if($instTab->isFinPartie() == true) {

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ *
+ * @author Baptiste Duvieu
+ * @author Billal Zaidi
+ *
+ */
+
 require("./CaseSolitaire.php");
 
 class TablierSolitaire {
@@ -12,6 +19,12 @@ class TablierSolitaire {
 	private int $nbLignes;
 	private int $nbColonnes;
 	
+	/**
+	 * 
+	 * @param int $nbLig
+	 * @param int $nbCol
+	 * construit tablier vide
+	 */
 	public function __construct(int $nbLig = 5, int $nbCol = 5) {
 		
 		$this->nbLignes = $nbLig;
@@ -25,41 +38,85 @@ class TablierSolitaire {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return int : nb lignes
+	 */
 	public function getNbLignes() : int {
 		
 		return $this->nbLignes;	
 	}
 	
+	/**
+	 * 
+	 * @return int : nb colonnes
+	 */
 	public function getNbColonnes() : int {
 		
 		return $this->nbColonnes;	
 	}
 	
+	/**
+	 * 
+	 * @return array : tablier
+	 */
 	public function getTablier() : array {
 	
 		return $this->tablier;	
 	}
 	
+	/**
+	 * 
+	 * @param int $numLigne
+	 * @param int $numColonne
+	 * @return CaseSolitaire : case correspondante
+	 */
 	public function getCase(int $numLigne, int $numColonne) : CaseSolitaire {
 	
 		return $this->tablier[$numLigne][$numColonne];	
 	}
 	
+	/**
+	 * 
+	 * @param int $numLigne
+	 * @param int $numColonne
+	 * vide case
+	 */
 	public function videCase(int $numLigne, int $numColonne) {
 		
 		$this->tablier[$numLigne][$numColonne]->setValeur(0);
 	}
 	
+	/**
+	 * 
+	 * @param int $numLigne
+	 * @param int $numColonne
+	 * remplit case
+	 */
 	public function remplitCase(int $numLigne, int $numColonne) {
 		
 		$this->tablier[$numLigne][$numColonne]->setValeur(1);
 	}
 	
+	/**
+	 * 
+	 * @param int $numLigne
+	 * @param int $numColonne
+	 * neutralise case
+	 */
 	public function neutraliseCase(int $numLigne, int $numColonne) {
 		
 		$this->tablier[$numLigne][$numColonne]->setValeur(-1);
 	}
 	
+	/**
+	 * 
+	 * @param int $numLigDepart
+	 * @param int $numColDepart
+	 * @param int $numLigArrivee
+	 * @param int $numColArrivee
+	 * @return bool : mouvement valide de [$numLigDepart][$numColDepart] vers [$numLigArrivee][$numColArrivee]
+	 */
 	public function estValideMvt(int $numLigDepart, int $numColDepart, int $numLigArrivee, int $numColArrivee) : bool {
 	
 		if($this->tablier[$numLigArrivee][$numColArrivee]->getValeur() == CaseSolitaire::VIDE) {
@@ -83,6 +140,13 @@ class TablierSolitaire {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param int $numLigDepart
+	 * @param int $numColDepart
+	 * @param int $dir
+	 * @return bool : mouvement valide de [$numLigDepart][$numColDepart] vers $dir
+	 */
 	public function estValideMvtDir(int $numLigDepart, int $numColDepart, int $dir) : bool {
 	
 	    if($this->tablier[$numLigDepart][$numColDepart]->getValeur() == 1) {
@@ -117,6 +181,12 @@ class TablierSolitaire {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param int $numLigDepart
+	 * @param int $numColDepart
+	 * @return bool : si bille jouable
+	 */
 	public function isBilleJouable(int $numLigDepart, int $numColDepart) : bool {
 		
 		if($this->estValideMvtDir($numLigDepart, $numColDepart, 0) || $this->estValideMvtDir($numLigDepart, $numColDepart, 1) || $this->estValideMvtDir($numLigDepart, $numColDepart, 2) || $this->estValideMvtDir($numLigDepart, $numColDepart, 3)) {
@@ -127,6 +197,14 @@ class TablierSolitaire {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param int $numLigDepart
+	 * @param int $numColDepart
+	 * @param int $numLigArrivee
+	 * @param int $numColArrivee
+	 * deplace bille de [$numLigDepart][$numColDepart] vers [$numLigArrivee][$numColArrivee]
+	 */
 	public function deplaceBille(int $numLigDepart, int $numColDepart, int $numLigArrivee, int $numColArrivee) {
 		
 		if($this->estValideMvt($numLigDepart, $numColDepart, $numLigArrivee, $numColArrivee) == true) {
@@ -155,6 +233,13 @@ class TablierSolitaire {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param int $numLigDepart
+	 * @param int $numColDepart
+	 * @param int $dir
+	 * deplace [$numLigDepart][$numColDepart] vers $dir
+	 */
 	public function deplaceBilleDir(int $numLigDepart, int $numColDepart, int $dir) {
 		
 		if($this->estValideMvtDir($numLigDepart, $numColDepart, $dir) == true) {
@@ -183,6 +268,10 @@ class TablierSolitaire {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return String : toutes les cases du tablier
+	 */
 	public function __toString() : String{
 	
 		$res="";
@@ -200,6 +289,10 @@ class TablierSolitaire {
 		return $res;
 	}
 	
+	/**
+	 * 
+	 * @return bool : si fin de partie
+	 */
 	public function isFinPartie() : bool {
 	
 		$compteur = 0;
@@ -243,6 +336,10 @@ class TablierSolitaire {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @return bool : si victoire
+	 */
 	public function isVictoire() : bool {
 		
 	    if($this -> isFinPartie() == true) {
@@ -269,6 +366,10 @@ class TablierSolitaire {
 	    return false;
 	}
 	
+	/**
+	 * 
+	 * @return TablierSolitaire : tablier gagnant
+	 */
 	public static function initTablierGagnant() : TablierSolitaire {
 		
 		$tabGagnant = new TablierSolitaire(5, 5);
@@ -286,6 +387,10 @@ class TablierSolitaire {
 		return $tabGagnant;
 	}
 	
+	/**
+	 * 
+	 * @return TablierSolitaire : tablier perdant
+	 */
 	public static function initTablierPerdant() : TablierSolitaire {
 		
 	    $tabPerdant = new TablierSolitaire(5, 5);
@@ -304,6 +409,10 @@ class TablierSolitaire {
 	    return $tabPerdant;
 	}
 	
+	/**
+	 * 
+	 * @return TablierSolitaire : tablier europeen
+	 */
 	public static function initTablierEuropeen() : TablierSolitaire {
 		
 		$tab = new TablierSolitaire(9, 9);
@@ -328,6 +437,10 @@ class TablierSolitaire {
 		return $tab;
 	}
 	
+	/**
+	 * 
+	 * @return TablierSolitaire : tablier anglais
+	 */
 	public static function initTablierAnglais() : TablierSolitaire {
 		
 	    $tab = new TablierSolitaire(7, 7);
