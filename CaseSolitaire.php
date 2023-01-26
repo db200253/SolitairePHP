@@ -13,7 +13,7 @@ class CaseSolitaire {
 
     public function __toString() : String {
 			
-	 	  return "La valeur de la case est " . $this->valeur;
+	 	  return "La valeur de la case est " . $this->valeur . "\n";
     }
 
     public function getValeur() : int {

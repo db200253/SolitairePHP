@@ -35,7 +35,7 @@ class TablierSolitaire {
 		return $this->nbColonnes;	
 	}
 	
-	public function getTablier() {
+	public function getTablier() : array {
 	
 		return $this->tablier;	
 	}
@@ -64,12 +64,12 @@ class TablierSolitaire {
 	
 		if($this->tablier[$numLigArrivee][$numColArrivee]->getValeur() == CaseSolitaire::VIDE) {
 			
-			if($this->tablier[($numLigArrivee - $numLigDepart)/2][($numColArrivee - $numColDepart)/2]->getValeur == CaseSolitaire::BILLE) {
+			if($this->tablier[($numLigArrivee + $numLigDepart)/2][($numColArrivee + $numColDepart)/2]->getValeur() == CaseSolitaire::BILLE) {
 				
-				if($numLigArrivee - $numLigDepart = 2 ||  $numLigArrivee - $numLigDepart = -2 && $numColDepart==$numColArrivee) {
+			    if($numLigArrivee - $numLigDepart = 2 && $numColDepart==$numColArrivee ||  $numLigArrivee - $numLigDepart = -2 && $numColDepart==$numColArrivee) {
 				
 					return true;
-				} elseif($numLigArrivee==$numLigDepart && $numColArrivee - $numColDepart = 2 || $numColArrivee - $numColDepart = - 2) {
+			    } elseif($numLigArrivee==$numLigDepart && $numColArrivee - $numColDepart = 2 || $numLigArrivee==$numLigDepart && $numColArrivee - $numColDepart = - 2) {
 			
 					return true;			
 				}
@@ -85,31 +85,34 @@ class TablierSolitaire {
 	
 	public function estValideMvtDir(int $numLigDepart, int $numColDepart, int $dir) : bool {
 	
-		if($dir==0) {
-			
-			if($numLigDepart - 2 > 0 && $this->tablier[$numLigDepart-2][$numColDepart]->getValeur() == CaseSolitaire::VIDE && $this->tablier[$numLigDepart-1][$numColDepart]->getValeur() == CaseSolitaire::BILLE) {
-			
-				return true;		
-			}
-		} elseif($dir==1) {
-			
-			if($numColDepart + 2 < $this->nbColonnes && $this->tablier[$numLigDepart][$numColDepart+2]->getValeur() == CaseSolitaire::VIDE && $this->tablier[$numLigDepart][$numColDepart+1]->getValeur() == CaseSolitaire::BILLE) {
-			
-				return true;		
-			}
-		} elseif($dir==2) {
-			
-			if($numLigDepart + 2 < $this->nbLignes && $this->tablier[$numLigDepart+2][$numColDepart]->getValeur() == CaseSolitaire::VIDE && $this->tablier[$numLigDepart+1][$numColDepart]->getValeur() == CaseSolitaire::BILLE) {
-			
-				return true;		
-			}
-		} elseif($dir==3) {
-			
-			if($numColDepart - 2 < $this->nbColonnes && $this->tablier[$numLigDepart][$numColDepart-2]->getValeur() == CaseSolitaire::VIDE && $this->tablier[$numLigDepart][$numColDepart-1]->getValeur() == CaseSolitaire::BILLE) {
-			
-				return true;		
-			}
-		}
+	    if($this->tablier[$numLigDepart][$numColDepart]->getValeur() == 1) {
+	        
+	        if($dir==0) {
+	            
+	            if($numLigDepart - 2 > 0 && $this->tablier[$numLigDepart-2][$numColDepart]->getValeur() == CaseSolitaire::VIDE && $this->tablier[$numLigDepart-1][$numColDepart]->getValeur() == CaseSolitaire::BILLE) {
+	                
+	                return true;
+	            }
+	        } elseif($dir==1) {
+	            
+	            if($numColDepart + 2 < $this->nbColonnes && $this->tablier[$numLigDepart][$numColDepart+2]->getValeur() == CaseSolitaire::VIDE && $this->tablier[$numLigDepart][$numColDepart+1]->getValeur() == CaseSolitaire::BILLE) {
+	                
+	                return true;
+	            }
+	        } elseif($dir==2) {
+	            
+	            if($numLigDepart + 2 < $this->nbLignes && $this->tablier[$numLigDepart+2][$numColDepart]->getValeur() == CaseSolitaire::VIDE && $this->tablier[$numLigDepart+1][$numColDepart]->getValeur() == CaseSolitaire::BILLE) {
+	                
+	                return true;
+	            }
+	        } elseif($dir==3) {
+	            
+	            if($numColDepart - 2 > 0 && $this->tablier[$numLigDepart][$numColDepart-2]->getValeur() == CaseSolitaire::VIDE && $this->tablier[$numLigDepart][$numColDepart-1]->getValeur() == CaseSolitaire::BILLE) {
+	                
+	                return true;
+	            }
+	        }
+	    }
 		
 		return false;
 	}
@@ -159,13 +162,13 @@ class TablierSolitaire {
 			if($dir == 0) {
 			
 				$this->tablier[$numLigDepart][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigDepart+1][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigDepart+2][$numColDepart]->setValeur(1);
+				$this->tablier[$numLigDepart-1][$numColDepart]->setValeur(0);
+				$this->tablier[$numLigDepart-2][$numColDepart]->setValeur(1);
 			} elseif($dir == 2) {
 			
 				$this->tablier[$numLigDepart][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigDepart-1][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigDepart-2][$numColDepart]->setValeur(1);
+				$this->tablier[$numLigDepart+1][$numColDepart]->setValeur(0);
+				$this->tablier[$numLigDepart+2][$numColDepart]->setValeur(1);
 			} elseif($dir == 1) {
 			
 				$this->tablier[$numLigDepart][$numColDepart]->setValeur(0);
@@ -188,8 +191,10 @@ class TablierSolitaire {
 			
 			for($j = 0; $j < $this->nbColonnes; ++$j) {
 			
-				$res.=$this->tablier[$i][$j]->__toString();
-			}	
+				$res .= "[".$i."][".$j."] : ".$this->tablier[$i][$j]->__toString();
+			}
+			
+			echo "\n";
 		}
 		
 		return $res;
@@ -223,7 +228,8 @@ class TablierSolitaire {
 			
 					if($this->isBilleJouable($i, $j)) {
 				
-						$deplacementPossible = true;				
+						$deplacementPossible = true;	
+						echo "Deplacement possible de la bille : [" . $i . "][" .$j . "]\n";
 					}
 				}	
 			}
@@ -275,7 +281,7 @@ class TablierSolitaire {
 		    }
 		}
 		
-		$tabGagnant->tablier[($tabGagnant->nbLignes)/2][($tabGagnant->nbColonnes)/2]->setValeur(1);
+		$tabGagnant->tablier[2][2]->setValeur(1);
 		
 		return $tabGagnant;
 	}
@@ -292,8 +298,8 @@ class TablierSolitaire {
 	        }
 	    }
 	    
-	    $tabPerdant->tablier[($tabPerdantt->nbLignes)/2][($tabPerdant->nbColonnes)/2]->setValeur(1);
-	    $tabPerdant->tablier[($tabPerdantt->nbLignes)/2+2][($tabPerdant->nbColonnes)/2]->setValeur(1);
+	    $tabPerdant->tablier[2][2]->setValeur(1);
+	    $tabPerdant->tablier[4][2]->setValeur(1);
 	    
 	    return $tabPerdant;
 	}
@@ -306,12 +312,12 @@ class TablierSolitaire {
 		    
 		    for($j = 0; $j < $tab->nbColonnes; ++$j) {
 		        
-		        if($i == ($tab->nbLignes)/2 && $j == ($tab->nbColonnes)/2) {
-		            
-		            $tab->tablier[$i][$j]->setValeur(0);
-		        } else if($i < sqrt($tab->nbLignes) || $i >= 2*sqrt($tab->nbLignes) && $j < sqrt($tab->nbColonnes) || $j >= 2*sqrt($tab->nbColonnes)) {
+		        if($i < 3 && $j < 3 || $i < 3 && $j > 5 || $i > 5 && $j < 3 || $i > 5 && $j > 5) {
 		            
 		            $tab->tablier[$i][$j]->setValeur(-1);
+		        } else if($i == 4 && $j == 4) {
+		            
+		            $tab->tablier[$i][$j]->setValeur(0);
 		        } else {
 		            
 		            $tab->tablier[$i][$j]->setValeur(1);
@@ -322,7 +328,7 @@ class TablierSolitaire {
 		return $tab;
 	}
 	
-	public static function initTablierAnglais() : array {
+	public static function initTablierAnglais() : TablierSolitaire {
 		
 	    $tab = new TablierSolitaire(7, 7);
 	    
@@ -333,7 +339,7 @@ class TablierSolitaire {
 	            if($i == 3 && $j == 3) {
 	                
 	                $tab->tablier[$i][$j]->setValeur(0);
-	            } else if($i < 2 || $i > 4 && $j < 2 || $j > 4) {
+	            } else if($i < 2 && $j < 2 || $i > 4 && $j < 2 || $i < 2 && $j > 4 || $i > 4 && $j > 4) {
 	                
 	                $tab->tablier[$i][$j]->setValeur(-1);
 	            } else {
