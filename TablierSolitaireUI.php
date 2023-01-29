@@ -19,7 +19,7 @@ class TablierSolitaireUI {
 			$cache = "";
 		} else {
 			
-			$cache = "disabled";		
+			$cache = "disabled";
 		}
 		
 		$chaine = "<button class='" . $classe . "'name='coord' value='" . $ligne . "_" . $colonne . "' " . $cache . ">&nbsp</button>";
@@ -56,7 +56,7 @@ class TablierSolitaireUI {
 		$form = "<div class = 'columns is-vcentered'>
                     <div class = 'column is-1'></div>
                     <div class ='column'>
-                        <h6 class = 'subtitle is-h6 has-text-centered'>
+                        <h6 class = 'subtitle is-h6 has-text-centered has-text-success-dark'>
                             <br><br>
                             Regles du jeu : Le solitaire est un jeu qui, comme l'indique son nom, 
                             se pratique seul. Le joueur déplace des pions 
@@ -68,10 +68,14 @@ class TablierSolitaireUI {
                             le deuxième et rejoint la case vide. Le deuxième pion est alors 
                             retiré du plateau. Un pion ne peut sauter qu'horizontalement ou 
                             verticalement, et un seul pion à la fois.
+                            <br><br>
+                            Dans le plateau ci-contre les cases violettes sont les cases vides
+                            tandis que les grises sont neutralisees.
                         </h6>
                     </div>
                     <div class = 'column is-1'></div>
                     <div class ='column is-half'>
+                        <br><br>
                         <form action = $action method = $methode>";
 		$compteur = 0;
 		

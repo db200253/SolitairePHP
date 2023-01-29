@@ -1,0 +1,29 @@
+html {
+	
+	background-image : url("./Images/background.jpg");
+	background-size : cover;
+	background-repeat : no-repeat;
+}
+
+button {
+	
+	width : 35px;
+	height : 35px;
+}
+
+.neutralise {
+	
+	background : rgb(40,40,40,0.8);
+}
+
+.vide {
+	
+	background : rgb(150,100,190, 0.8);
+}
+
+button.bille {
+	
+	background : url("./Images/bille.png") no-repeat;
+	cursor : pointer;
+	background-size: cover;
+}

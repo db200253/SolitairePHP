@@ -9,7 +9,7 @@ function getDebutHTML(string $title = "Title content", string $style = null) : s
     $debutHtml .= $title;
     $debutHtml .= "</title>
       					<link rel='stylesheet' href=$style>
-      					<link rel = 'icon' href = '../Images/logoSite.png'>
+                        <link rel='stylesheet' href='./stylePerso.css'>
 
       				</head>
       				<body>";
