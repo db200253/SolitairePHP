@@ -29,7 +29,7 @@ class TablierSolitaireUI {
 	
 	public function getFormulaireOrigine() : String {
 	
-		$action = "";//self::getFormulaireDestination();
+		$action = '"$_SERVER[PHP_SELF]"';
 		$methode = "post";
 		$tab = array();
 		
@@ -98,69 +98,15 @@ class TablierSolitaireUI {
 		return $form;
 	}
 	
-	/*public function getFormulaireDestination() : String {
+	public function getFormulaireDestination() : String {
 		
 		$action = "./action.php";
 		$methode = "post";
 		$tab = array();
-		$bille = explode("_", $_POST['coord']);
-		$tab = array();
+		$coord = $_POST['coord'];
+		echo $coord;
 		
-		foreach($bille as $elem) {
-			echo $elem;		
-		}
-		
-		for($i = 0; $i < 4; ++$i) {
-			
-			$l = (int)$bille[0];
-			$c = (int)$bille[1];
-			
-			if($this->ts->estValideMvtDir($l, $c, $i)) {
-				
-				if($i == 0) {
-					
-					$tab[] = self::getBoutonCaseSolitaire("vide", $l - 2, $c, false);	
-				} elseif($i == 1) {
-				
-					$tab[] = self::getBoutonCaseSolitaire("vide", $l, $c + 2, false);				
-				} elseif($i == 2) {
-				
-					$tab[] = self::getBoutonCaseSolitaire("vide", $l + 2, $c, false);				
-				} else {
-				
-					$tab[] = self::getBoutonCaseSolitaire("vide", $l, $c - 2, false);				
-				}
-			}		
-		}
-		
-		$form = "<form action = $action method = $methode>";
-		
-		foreach($tab as $element) {
-   		
-   		$form .= $element;
-   	}
-		$form .= "</form>";	
-		
-		return $form;
-	}*/
+		return $coord;
+	}
 }
-
-$TablierSolitaire = TablierSolitaire::initTablierEuropeen();
-$instUI = new TablierSolitaireUI($TablierSolitaire);
-
-$html = getDebutHTML("", "'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css'");
-$html .= "<section class='hero is-small is-primary'>
-            <div class='hero-body'>
-                <p class='title'>
-                    Solitaire
-                </p>
-                <p class='subtitle'>
-                    Jouez au jeu du solitaire !
-                </p>
-            </div>
-        </section>";
-$html .= $instUI->getFormulaireOrigine();
-$html .= getFinHTML();
-
-echo $html;
 ?>
