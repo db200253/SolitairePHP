@@ -22,14 +22,14 @@ class TablierSolitaireUI {
 			$cache = "disabled";		
 		}
 		
-		$chaine = "<button class='" . $classe . "'name='coord' value='" . $ligne . "_" . $colonne . "' " . $cache . ">" . $ligne . "," . $colonne . "</button>";
+		$chaine = "<button class='" . $classe . "'name='coord' value='" . $ligne . "_" . $colonne . "' " . $cache . ">&nbsp</button>";
 		
 		return $chaine;
 	}
 	
 	public function getFormulaireOrigine() : String {
 	
-		$action = self::getFormulaireDestination();
+		$action = "";//self::getFormulaireDestination();
 		$methode = "post";
 		$tab = array();
 		
@@ -53,17 +53,48 @@ class TablierSolitaireUI {
 			}
 	   }
 
-		$form = "<h1>Choisissez une bille Ã  dÃ©placer</h1><form action = $action method = $methode>";
+		$form = "<div class = 'columns is-vcentered'>
+                    <div class = 'column is-1'></div>
+                    <div class ='column'>
+                        <h6 class = 'subtitle is-h6 has-text-centered'>
+                            <br><br>
+                            Regles du jeu : Le solitaire est un jeu qui, comme l'indique son nom, 
+                            se pratique seul. Le joueur déplace des pions 
+                            (généralement des billes ou des fiches) sur un plateau dans le 
+                            but de n'en avoir plus qu'un seul.
+                            <br><br>
+                            Pour supprimer des pions, il faut que deux pions soient adjacents 
+                            et suivis d'une case vide. Le premier pion « saute » par-dessus 
+                            le deuxième et rejoint la case vide. Le deuxième pion est alors 
+                            retiré du plateau. Un pion ne peut sauter qu'horizontalement ou 
+                            verticalement, et un seul pion à la fois.
+                        </h6>
+                    </div>
+                    <div class = 'column is-1'></div>
+                    <div class ='column is-half'>
+                        <form action = $action method = $methode>";
+		$compteur = 0;
+		
 		foreach($tab as $element) {
-   		
-   		$form .= $element;
-   	}
-   	$form .= "</form>";	
+		    
+		    if($compteur < $this->ts->getNbColonnes()) {
+		        
+		        $form .= $element;
+		        ++$compteur;
+		    } else {
+		        
+		        $form .= "<br>" . $element;
+		        $compteur = 1;
+		    }
+		}
+   	    $form .= "      </form>
+                    </div>
+                  </div>";	
 		
 		return $form;
 	}
 	
-	public function getFormulaireDestination() : String {
+	/*public function getFormulaireDestination() : String {
 		
 		$action = "./action.php";
 		$methode = "post";
@@ -107,13 +138,23 @@ class TablierSolitaireUI {
 		$form .= "</form>";	
 		
 		return $form;
-	}
+	}*/
 }
 
 $TablierSolitaire = TablierSolitaire::initTablierEuropeen();
 $instUI = new TablierSolitaireUI($TablierSolitaire);
 
-$html = getDebutHTML("");
+$html = getDebutHTML("", "'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css'");
+$html .= "<section class='hero is-small is-primary'>
+            <div class='hero-body'>
+                <p class='title'>
+                    Solitaire
+                </p>
+                <p class='subtitle'>
+                    Jouez au jeu du solitaire !
+                </p>
+            </div>
+        </section>";
 $html .= $instUI->getFormulaireOrigine();
 $html .= getFinHTML();
 
