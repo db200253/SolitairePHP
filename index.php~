@@ -20,12 +20,6 @@ $_SESSION['debut'] .= "<section class='hero is-small is-primary'>
         					</section>";
     
 $html = $_SESSION['debut'] . $_SESSION['UI']->getFormulaireOrigine();
-
-if(isset($_POST['coord'])) {
-	
-	$html .= $_SESSION['UI']->getFormulaireDestination();
-} 
-
 $html .= getFinHTML();
 
 echo $html;

@@ -179,10 +179,9 @@ class TablierSolitaireUI {
 		    	
 		    	$form .= "<br>";
 			}
-   	    	
-   	   $form .= "    </form>
-                    	</div>
-                  </div>";	
+   	    	$form .= "      </form>
+                    			</div>
+                  		</div>";	
 		
 			return $form;
 		}
