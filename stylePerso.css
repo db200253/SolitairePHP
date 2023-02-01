@@ -1,13 +1,8 @@
 html {
 	
-	background-image : url("./Images/background.jpg");
+	background-image : url("./Images/background");
 	background-size : cover;
 	background-repeat : no-repeat;
-}
-
-section {
-	
-	opacity : 0.8;
 }
 
 button {
@@ -21,14 +16,14 @@ button {
 	background : rgb(40,40,40,0.8);
 }
 
-.vide {
-	
-	background : rgb(150,100,190, 0.8);
-}
-
-button.bille {
+.bille {
 	
 	background : url("./Images/bille.png") no-repeat;
 	cursor : pointer;
 	background-size: cover;
+}
+
+.play {
+	
+	border : medium groove yellow ;
 }

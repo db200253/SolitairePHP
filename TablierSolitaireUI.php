@@ -1,17 +1,39 @@
 <?php
 
+/**
+ *
+ * @author Baptiste Duvieu
+ * @author Bilal Zaidi
+ *
+ */
+
+
 require("./TablierSolitaire.php");
 require("./libFonction.php");
+
 
 class TablierSolitaireUI {
 	
 	private TablierSolitaire $ts;
 	
+	/**
+	 * 
+	 * @param TablierSolitaire $ts
+	 * attribue = parametre
+	 */
 	public function __construct(TablierSolitaire $ts = null) {
 	
 		$this->ts = $ts;	
 	}
 	
+	/**
+	*@param String $classe
+	*@param int $ligne
+	*@param int $colonne
+	*@param bool $disabled
+	*@return String : un bouton html
+	*construit un bouton à la ligne et à la colonne correspondantes, potentiellement disabled et avec une classe css précisée
+	*/
 	private static function getBoutonCaseSolitaire(String $classe, int $ligne, int $colonne, bool $disabled) : String {
 		
 		if($disabled == false) {
@@ -27,6 +49,9 @@ class TablierSolitaireUI {
 		return $chaine;
 	}
 	
+	/**
+	*@return String : la chaîne de caractères correspondante à un plateau sous forme de formulaire en sélectionnant les billes jouables
+	*/
 	public function getFormulaireOrigine() : String {
 	
 		$action = $_SERVER['PHP_SELF'];
@@ -39,7 +64,7 @@ class TablierSolitaireUI {
 			
 				if($this->ts->getCase($i, $j)->getValeur() == 1 && $this->ts->isBilleJouable($i, $j)) {
 					
-					$tab[] = self::getBoutonCaseSolitaire("bille", $i, $j, false);
+					$tab[] = self::getBoutonCaseSolitaire("bille play", $i, $j, false);
 				} elseif($this->ts->getCase($i, $j)->getValeur() == 1) {
 				
 					$tab[] = self::getBoutonCaseSolitaire("bille", $i, $j, true);
@@ -56,22 +81,25 @@ class TablierSolitaireUI {
 		$form = "<div class = 'columns is-vcentered'>
                     <div class = 'column is-1'></div>
                     <div class ='column'>
-                        <h6 class = 'subtitle is-h6 has-text-centered has-text-success-dark'>
-                            <br><br>
-                            Regles du jeu : Le solitaire est un jeu qui, comme l'indique son nom, 
-                            se pratique seul. Le joueur deplace des pions 
-                            (generalement des billes ou des fiches) sur un plateau dans le 
-                            but de n'en avoir plus qu'un seul.
-                            <br><br>
-                            Pour supprimer des pions, il faut que deux pions soient adjacents 
-                            et suivis d'une case vide. Le premier pion saute par-dessus 
-                            le deuxieme et rejoint la case vide. Le deuxieme pion est alors 
-                            retire du plateau. Un pion ne peut sauter qu'horizontalement ou 
-                            verticalement, et un seul pion a la fois.
-                            <br><br>
-                            Dans le plateau ci-contre les cases violettes sont les cases vides
-                            tandis que les grises sont neutralisees.
-                        </h6>
+                    		<br><br>
+                    		<div class ='tile is-8 has-background-primary'>
+                        	<h6 class = 'subtitle is-h6 has-text-centered has-text-white'>
+                            	Regles du jeu : Le solitaire est un jeu qui, comme l'indique son nom, 
+                            	se pratique seul. Le joueur deplace des pions 
+                            	(generalement des billes ou des fiches) sur un plateau dans le 
+                            	but de n'en avoir plus qu'un seul.
+                            	<br><br>
+                            	Pour supprimer des pions, il faut que deux pions soient adjacents 
+                           	et suivis d'une case vide. Le premier pion saute par-dessus 
+                            	le deuxieme et rejoint la case vide. Le deuxieme pion est alors 
+                            	retire du plateau. Un pion ne peut sauter qu'horizontalement ou 
+                            	verticalement, et un seul pion a la fois.
+                            	<br><br>
+                            	Dans le plateau ci-contre les cases violettes sont les cases vides
+                            	tandis que les grises sont neutralisees. Les cases encadrees en jaune
+                            	sont les billes jouables/les cases disponibles.
+                        	</h6>
+                        </div>
                     </div>
                     <div class = 'column is-1'></div>
                     <div class ='column is-half'>
@@ -98,6 +126,9 @@ class TablierSolitaireUI {
 		return $form;
 	}
 	
+	/**
+	*@return String : la chaîne de caractères correspondante à un plateau sous forme de formulaire en sélectionnant les cases jouables
+	*/
 	public function getFormulaireDestination() : String {
 		
 		if(isset($_POST['coord'])) {
@@ -126,19 +157,19 @@ class TablierSolitaireUI {
 						
 						if($this->ts->estValideMvtDir($i, $j, 0)) {
 						
-							$tab[$i-2][$j] = self::getBoutonCaseSolitaire("vide", $i-2, $j, false);
+							$tab[$i-2][$j] = self::getBoutonCaseSolitaire("vide play", $i-2, $j, false);
 						}
 						if($this->ts->estValideMvtDir($i, $j, 1)) {
 						
-							$tab[$i][$j+2] = self::getBoutonCaseSolitaire("vide", $i, $j+2, false);
+							$tab[$i][$j+2] = self::getBoutonCaseSolitaire("vide play", $i, $j+2, false);
 						}
 						if($this->ts->estValideMvtDir($i, $j, 2)) {
 						
-							$tab[$i+2][$j] = self::getBoutonCaseSolitaire("vide", $i+2, $j, false);
+							$tab[$i+2][$j] = self::getBoutonCaseSolitaire("vide play", $i+2, $j, false);
 						}
 						if($this->ts->estValideMvtDir($i, $j, 3)) {
 						
-							$tab[$i][$j-2] = self::getBoutonCaseSolitaire("vide", $i, $j-2, false);
+							$tab[$i][$j-2] = self::getBoutonCaseSolitaire("vide play", $i, $j-2, false);
 						}
 					}
 				}
@@ -147,28 +178,31 @@ class TablierSolitaireUI {
 			$form = "<div class = 'columns is-vcentered'>
                     <div class = 'column is-1'></div>
                     <div class ='column'>
-                        <h6 class = 'subtitle is-h6 has-text-centered has-text-success-dark'>
-                            <br><br>
-                            Regles du jeu : Le solitaire est un jeu qui, comme l'indique son nom, 
-                            se pratique seul. Le joueur deplace des pions 
-                            (generalement des billes ou des fiches) sur un plateau dans le 
-                            but de n'en avoir plus qu'un seul.
-                            <br><br>
-                            Pour supprimer des pions, il faut que deux pions soient adjacents 
-                            et suivis d'une case vide. Le premier pion saute par-dessus 
-                            le deuxieme et rejoint la case vide. Le deuxieme pion est alors 
-                            retire du plateau. Un pion ne peut sauter qu'horizontalement ou 
-                            verticalement, et un seul pion a la fois.
-                            <br><br>
-                            Dans le plateau ci-contre les cases violettes sont les cases vides
-                            tandis que les grises sont neutralisees.
-                        </h6>
+                        <br><br>
+                    		<div class ='tile is-8 has-background-primary'>
+                        	<h6 class = 'subtitle is-h6 has-text-centered has-text-white'>
+                            	Regles du jeu : Le solitaire est un jeu qui, comme l'indique son nom, 
+                            	se pratique seul. Le joueur deplace des pions 
+                            	(generalement des billes ou des fiches) sur un plateau dans le 
+                            	but de n'en avoir plus qu'un seul.
+                            	<br><br>
+                            	Pour supprimer des pions, il faut que deux pions soient adjacents 
+                           	et suivis d'une case vide. Le premier pion saute par-dessus 
+                            	le deuxieme et rejoint la case vide. Le deuxieme pion est alors 
+                            	retire du plateau. Un pion ne peut sauter qu'horizontalement ou 
+                            	verticalement, et un seul pion a la fois.
+                            	<br><br>
+                            	Dans le plateau ci-contre les cases violettes sont les cases vides
+                            	tandis que les grises sont neutralisees. Les cases encadrees en jaune
+                            	sont les billes jouables/les cases disponibles.
+                        	</h6>
+                        </div>
                     </div>
                     <div class = 'column is-1'></div>
                     <div class ='column is-half'>
                         <br><br>
                         <form action = $action method = $methode>
-                        <input name='coord' type='hidden' value='" . $coord[0] . "_" . $coord[1] . "'>";
+                        <input name='bille' type='hidden' value='" . $coord[0] . "_" . $coord[1] . "'>";
 		
 			foreach($tab as $line) {
 		    

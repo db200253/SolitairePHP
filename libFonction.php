@@ -24,4 +24,9 @@ function getFinHTML(): string {
     
     return $finHtml;
 }
+
+function affichage(String $code) {
+
+	echo $code;
+}
 ?>
