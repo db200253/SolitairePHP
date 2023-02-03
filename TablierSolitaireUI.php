@@ -26,6 +26,11 @@ class TablierSolitaireUI {
 		$this->ts = $ts;	
 	}
 	
+	public function getTS() : TablierSolitaire {
+		
+		return $this->ts;
+	}
+	
 	/**
 	*@param String $classe
 	*@param int $ligne
@@ -95,7 +100,7 @@ class TablierSolitaireUI {
                             	retire du plateau. Un pion ne peut sauter qu'horizontalement ou 
                             	verticalement, et un seul pion a la fois.
                             	<br><br>
-                            	Dans le plateau ci-contre les cases violettes sont les cases vides
+                            	Dans le plateau ci-contre les cases sans bille sont les cases vides
                             	tandis que les grises sont neutralisees. Les cases encadrees en jaune
                             	sont les billes jouables/les cases disponibles.
                         	</h6>
@@ -141,17 +146,23 @@ class TablierSolitaireUI {
 			for($i = 0; $i < $this->ts->getNbLignes(); ++$i) {
 			
 				for($j = 0; $j < $this->ts->getNbColonnes(); ++$j) {
-					
+						
 					if($this->ts->getCase($i, $j)->getValeur() == 1) {
-				
-						$tab[$i][$j] = self::getBoutonCaseSolitaire("bille", $i, $j, true);
-					} else if($this->ts->getCase($i, $j)->getValeur() == -1){
-				
-						$tab[$i][$j] = self::getBoutonCaseSolitaire("neutralise", $i, $j, true);			
-					} else {
-				
-						$tab[$i][$j] = self::getBoutonCaseSolitaire("vide", $i, $j, true);			
-					}
+
+                 $tab[$i][$j] = self::getBoutonCaseSolitaire("bille", $i, $j, true);
+               } else if($this->ts->getCase($i, $j)->getValeur() == -1){
+
+                 $tab[$i][$j] = self::getBoutonCaseSolitaire("neutralise", $i, $j, true);
+               } else {
+
+                 $tab[$i][$j] = self::getBoutonCaseSolitaire("vide", $i, $j, true);
+               }
+            }
+			}
+			
+			for($i = 0; $i < $this->ts->getNbLignes(); ++$i) {
+			
+				for($j = 0; $j < $this->ts->getNbColonnes(); ++$j) {
 			
 					if($i == $coord[0] && $j == $coord[1]) {
 						
@@ -192,7 +203,7 @@ class TablierSolitaireUI {
                             	retire du plateau. Un pion ne peut sauter qu'horizontalement ou 
                             	verticalement, et un seul pion a la fois.
                             	<br><br>
-                            	Dans le plateau ci-contre les cases violettes sont les cases vides
+                            	Dans le plateau ci-contre les cases sans bille sont les cases vides
                             	tandis que les grises sont neutralisees. Les cases encadrees en jaune
                             	sont les billes jouables/les cases disponibles.
                         	</h6>

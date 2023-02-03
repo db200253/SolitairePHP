@@ -18,7 +18,7 @@ session_start();
 
 if(!(isset($_SESSION['tablier']))) {
 	
-	$TablierSolitaire = TablierSolitaire::initTablierEuropeen();
+	$TablierSolitaire = TablierSolitaire::initTablierAnglais();
 	$_SESSION['tablier'] = $TablierSolitaire;
 }
 

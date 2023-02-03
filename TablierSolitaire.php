@@ -222,12 +222,12 @@ class TablierSolitaire {
 			} elseif($numColArrivee - $numColDepart == -2) {
 			
 				$this->tablier[$numLigDepart][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigDepart][$numColDepart+1]->setValeur(0);
+				$this->tablier[$numLigDepart][$numColDepart-1]->setValeur(0);
 				$this->tablier[$numLigArrivee][$numColArrivee]->setValeur(1);
 			} else {
 				
 				$this->tablier[$numLigDepart][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigDepart][$numColDepart-1]->setValeur(0);
+				$this->tablier[$numLigDepart][$numColDepart+1]->setValeur(0);
 				$this->tablier[$numLigArrivee][$numColArrivee]->setValeur(1);
 			}
 		}
@@ -295,45 +295,20 @@ class TablierSolitaire {
 	 */
 	public function isFinPartie() : bool {
 	
-		$compteur = 0;
-		
+		$fin = true;
+			
 		for($i=0; $i < $this->nbLignes; ++$i) {
 			
 			for($j = 0; $j < $this->nbColonnes; ++$j) {
 			
-				if($this->tablier[$i][$j]->getValeur() == CaseSolitaire::BILLE) {
+				if($this->isBilleJouable($i, $j)) {
 				
-					++$compteur;				
+					$deplacementPossible = false;
 				}
 			}	
 		}
-		
-		if($compteur == 1) {
-		
-			return true;		
-		} elseif($compteur > 1) {
-		
-			$deplacementPossible = false;
 			
-			for($i=0; $i < $this->nbLignes; ++$i) {
-			
-				for($j = 0; $j < $this->nbColonnes; ++$j) {
-			
-					if($this->isBilleJouable($i, $j)) {
-				
-						$deplacementPossible = true;	
-						echo "Deplacement possible de la bille : [" . $i . "][" .$j . "]\n";
-					}
-				}	
-			}
-			
-			if($deplacementPossible == false) {
-			
-				return true;	
-			}
-		}
-		
-		return false;
+		return $fin;
 	}
 	
 	/**
