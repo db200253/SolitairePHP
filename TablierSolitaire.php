@@ -303,7 +303,7 @@ class TablierSolitaire {
 			
 				if($this->isBilleJouable($i, $j)) {
 				
-					$deplacementPossible = false;
+					$fin = false;
 				}
 			}	
 		}
