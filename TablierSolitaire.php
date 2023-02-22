@@ -211,24 +211,16 @@ class TablierSolitaire {
 			
 			if($numLigArrivee - $numLigDepart == 2) {
 			
-				$this->tablier[$numLigDepart][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigDepart+1][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigArrivee][$numColArrivee]->setValeur(1);
+				$this->deplaceBilleDir($numLigDepart, $numColDepart, 2);
 			} elseif($numLigArrivee - $numLigDepart == -2) {
 			
-				$this->tablier[$numLigDepart][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigDepart-1][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigArrivee][$numColArrivee]->setValeur(1);
-			} elseif($numColArrivee - $numColDepart == -2) {
+				$this->deplaceBilleDir($numLigDepart, $numColDepart, 0);
+			} elseif($numColArrivee - $numColDepart == 2) {
 			
-				$this->tablier[$numLigDepart][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigDepart][$numColDepart-1]->setValeur(0);
-				$this->tablier[$numLigArrivee][$numColArrivee]->setValeur(1);
+				$this->deplaceBilleDir($numLigDepart, $numColDepart, 1);
 			} else {
 				
-				$this->tablier[$numLigDepart][$numColDepart]->setValeur(0);
-				$this->tablier[$numLigDepart][$numColDepart+1]->setValeur(0);
-				$this->tablier[$numLigArrivee][$numColArrivee]->setValeur(1);
+				$this->deplaceBilleDir($numLigDepart, $numColDepart, 3);
 			}
 		}
 	}
@@ -386,9 +378,41 @@ class TablierSolitaire {
 	
 	/**
 	 * 
+	 * 
 	 * @return TablierSolitaire : tablier europeen
 	 */
 	public static function initTablierEuropeen() : TablierSolitaire {
+	    
+	    $tab = new TablierSolitaire(7, 7);
+	    
+	    for($i=0; $i < $tab->nbLignes; ++$i) {
+	        
+	        for($j = 0; $j < $tab->nbColonnes; ++$j) {
+	            
+	            if($i == 0 && $j == 0 || $i == 0 && $j == 1 || $i == 1 && $j == 0 || 
+	               $i == 0 && $j == 6 || $i == 0 && $j == 5 || $i == 1 && $j == 6 ||
+	               $i == 6 && $j == 0 || $i == 5 && $j == 0 || $i == 6 && $j == 1 ||
+	               $i == 6 && $j == 6 || $i == 6 && $j == 5 || $i == 5 && $j == 6) {
+	                
+	                $tab->tablier[$i][$j]->setValeur(-1);
+	            } else if($i == 2 && $j == 3) {
+	                
+	                $tab->tablier[$i][$j]->setValeur(0);
+	            } else {
+	                
+	                $tab->tablier[$i][$j]->setValeur(1);
+	            }
+	        }
+	    }
+	    
+	    return $tab;
+	}
+	
+	/**
+	 * 
+	 * @return TablierSolitaire : tablier Wiegleb
+	 */
+	public static function initTablierWiegleb() : TablierSolitaire {
 		
 		$tab = new TablierSolitaire(9, 9);
 		
